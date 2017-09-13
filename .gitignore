@@ -66,3 +66,5 @@ iOSInjectionProject/
 # Logos
 wechatscraper/.theos/*
 wechatscraper/com.luckytr.wechat.scraper*
+wechatscraper/*.h
+wechatscraper/*.m

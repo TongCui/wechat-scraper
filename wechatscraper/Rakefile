@@ -20,12 +20,21 @@ task :clean do
   sh 'rm com.luckytr.wechat.scraper_*_iphoneos-arm.deb'
 end
 
-task :make do
-  
+desc "Collect Files"
+task :collect do 
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/KIFAdditions/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Managers/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Monkey/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/ToolAdditions/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/*.h ./'
+  # ls *.m | awk '{print $NF" \\"}'
+  command = "ls *.m | awk '{print $NF\" \\\\\"}'"
+  File.open('tmp.txt', 'w') {|f| f.write command }
+  sh command
 end
 
-desc "SSH into jailbreak server"
-task :replace do
+desc "SSH into jailbreak server, make and replace deb"
+task :make do
   puts "> Making..."
   sh 'make'
   sh 'make package message=yes'

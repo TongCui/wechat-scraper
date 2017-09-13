@@ -21,13 +21,18 @@ typedef struct {
     unsigned int _abandonForwardingRecord:1;
 } UITouchFlags;
 
+@interface UITouch (Private)
+
+@property(retain) UIView *view;
+@property(retain) UIWindow *window;
+
+@end
+
 @interface UITouch ()
 
 @property(assign) BOOL isTap;
 @property(assign) NSUInteger tapCount;
 @property(assign) UITouchPhase phase;
-@property(retain) UIView *view;
-@property(retain) UIWindow *window;
 @property(assign) NSTimeInterval timestamp;
 
 - (void)setGestureView:(UIView *)view;
