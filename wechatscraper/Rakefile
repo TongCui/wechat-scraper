@@ -29,7 +29,6 @@ task :collect do
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/*.h ./'
   # ls *.m | awk '{print $NF" \\"}'
   command = "ls *.m | awk '{print $NF\" \\\\\"}'"
-  File.open('tmp.txt', 'w') {|f| f.write command }
   sh command
 end
 
