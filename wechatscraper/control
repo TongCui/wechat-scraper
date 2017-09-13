@@ -1,0 +1,9 @@
+Package: com.luckytr.wechat.scraper
+Name: wechat-scraper
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Wechat Scraper tweak
+Maintainer: tcui
+Author: tcui
+Section: Tweaks

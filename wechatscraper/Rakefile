@@ -1,0 +1,43 @@
+require 'net/ssh'
+
+task default: %w[test]
+
+
+phone_ip = "192.168.4.136"
+
+desc "Test"
+task :test do
+  puts "Hello world"
+  last_packate_file_path = File.join(Dir.pwd, ".theos/last_package")
+  puts last_packate_file_path
+  last = File.open(last_packate_file_path, 'r') {|f| f.read}
+  puts last
+end
+
+desc "Clean project"
+task :clean do 
+  # clean all debs
+  sh 'rm com.luckytr.wechat.scraper_*_iphoneos-arm.deb'
+end
+
+task :make do
+  
+end
+
+desc "SSH into jailbreak server"
+task :replace do
+  puts "> Making..."
+  sh 'make'
+  sh 'make package message=yes'
+
+  last_packate_file_path = File.join(Dir.pwd, ".theos/last_package")
+  puts last_packate_file_path
+  last = File.open(last_packate_file_path, 'r') {|f| f.read}.strip
+  puts "> Last file is #{last}..."
+  sh "scp #{last} root@#{phone_ip}:/debs/"
+
+  Net::SSH.start(phone_ip, "root") do |ssh|
+    puts ssh.exec! "cd /debs ; ls -al ; dpkg -i #{last}"
+  end
+
+end
