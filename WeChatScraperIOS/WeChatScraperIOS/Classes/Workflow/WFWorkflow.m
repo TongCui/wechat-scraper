@@ -13,6 +13,21 @@
 
 @implementation WFWorkflow
 
++ (NSArray<NSString *> *)targetIds {
+    return @[
+             @"rmrbwx",
+             @"zhanhao668",
+             @"yetingfm",
+             @"lengtoo",
+             @"mimeng7",
+             @"QQ_shijuezhi",
+             @"duhaoshu",
+             @"gaoshi222",
+             @"lengxiaohua2012",
+             @"xinhuashefabu1",
+             ];
+}
+
 + (NSArray<WFTaskModel *> *)wechatScraperWorkflow {
     NSMutableArray *tasks = [NSMutableArray array];
     WFTaskModel *task = nil;

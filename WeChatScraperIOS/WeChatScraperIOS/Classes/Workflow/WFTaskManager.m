@@ -59,6 +59,7 @@
 }
 
 - (void)notifyError:(NSString *)errorMessage {
+    [self.tasks removeAllObjects];
     self.isRunning = NO;
     //  TODO:
 }

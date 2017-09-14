@@ -6,6 +6,22 @@
 #import "MTGridWindow.h"
 #import "WFTaskManager.h"
 
+@interface CContact
+
+@property(copy, nonatomic) NSString *m_nsNickName;
+@property(copy, nonatomic) NSString *m_nsSignature;
+
+@end
+
+@interface ContactInfoViewController
+
+@property(strong, nonatomic) CContact *m_contact;
+@property(strong, nonatomic) UIView *view;
+- (NSDictionary *)accountInfo;
+- (UIView *)historyCell;
+
+@end
+
 @interface MMWebViewController
 
 @property (strong) WKWebView *webView;
@@ -20,7 +36,7 @@
   DDLog(@"Wechat didFinishLaunchingWithOptions");
   [[MTGridWindow sharedInstance] makeKeyAndVisible];
   [MTGridWindow sharedInstance].userInteractionEnabled = NO;
-  [[WFTaskManager sharedInstance] setup];
+  // [[WFTaskManager sharedInstance] setup];
   DDLog(@"Set up Grid window");
   return %orig;
 }
@@ -31,6 +47,39 @@
   CGPoint point = CGPointMake([values.firstObject floatValue], [values.lastObject floatValue]);
   
   [MTAutomationBridge tapPoint:point];
+}
+
+%new
+- (void)testType:(NSString *)input {
+  [MTAutomationBridge typeIntoKeyboard:input];
+}
+
+%end
+
+/* profile page */
+%hook ContactInfoViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+  DDLog(@"accountTitle %@", [self accountInfo]); 
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [MTAutomationBridge tapView:[self historyCell]];
+  });
+  %orig;
+}
+
+%new
+- (NSDictionary *)accountInfo {
+  return @{
+    @"nick_name":self.m_contact.m_nsNickName,
+    @"signature":self.m_contact.m_nsSignature,
+  };
+}
+
+%new
+- (UIView *)historyCell {
+  UITableView *tableView = [[self view] subviews][0];
+  NSArray *cells = [tableView visibleCells];
+  return cells.lastObject;
 }
 
 %end

@@ -28,8 +28,16 @@ task :reboot do
 end
 
 desc "Collect Only Workflow"
-task :collectwf do 
+task :updatewf do 
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Workflow/* ./'
+end
+
+desc "Collect target ids"
+task :ids, [:count] do |t, args|
+  count = args[:count]
+  # cat ../wechat-headers/ids.txt | head -n10 |awk '{print "@\""$1"\","}'
+  command = "cat ../wechat-headers/ids.txt | head -n#{count} |awk '{print \"@\\\"\"$1\"\\\",\"}'"
+  sh command
 end
 
 desc "Collect Files"

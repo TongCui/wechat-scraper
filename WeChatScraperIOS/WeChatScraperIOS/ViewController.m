@@ -31,9 +31,17 @@
     //  End
 }
 
+- (NSString *)title {
+    return nil;
+}
 
 - (void)testButtonPressed:(id)sender {
     //  TODO: delete it
+    UITableView *tableView = nil;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       [MTAutomationBridge tapView:]
+    });
+    
     [[WFTaskManager sharedInstance] setup];
     [[WFTaskManager sharedInstance] start];
 }
