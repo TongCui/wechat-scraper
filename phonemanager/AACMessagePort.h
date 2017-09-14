@@ -7,6 +7,7 @@ enum{
 	AACMessageIdKillBackground = 1,
 	AACMessageIdListAllApps = 2,
 	AACMessageIdInstallApp = 3,
+	AACMessageIdPressHome = 3,
 };
 
 static CFMessagePortRef serverPort;

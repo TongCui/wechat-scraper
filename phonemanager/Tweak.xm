@@ -157,6 +157,11 @@ static CFDataRef messageServerCallback(CFMessagePortRef local, SInt32 messageId,
 			return NULL;
 		}
 		break;
+		case AACMessageIdPressHome: {
+			[[UIApplication sharedApplication] performSelectorOnMainThread:@selector(quitApp) withObject:nil waitUntilDone:NO];
+			return NULL;
+		}
+		break;
 		case AACMessageIdKillBackground : {
 			killBackground();
 			return NULL;
@@ -207,13 +212,12 @@ static CFDataRef messageServerCallback(CFMessagePortRef local, SInt32 messageId,
 	if (duration > 0)
 	{
 		[(id)self performSelector:@selector(quitApp) withObject:nil afterDelay:duration];
-		[(id)self performSelector:@selector(printDPIForIdentifier:) withObject:identifier afterDelay:duration+5];
+		// [(id)self performSelector:@selector(printDPIForIdentifier:) withObject:identifier afterDelay:duration+5];
 	}
 }
 
 %new
 -(void)quitApp{
-	NSLog(@"quitapp");
 	[[objc_getClass("SBUIController") sharedInstance] clickedMenuButton];
 }
 

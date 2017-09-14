@@ -21,23 +21,21 @@ int main(int argc, char **argv, char **envp) {
 			NSData *jsonData = [NSJSONSerialization dataWithJSONObject:applist options:0 error:nil];
 			NSLog(@"%@",[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
 			return 0;
-		}
+		} else if (strcmp(argv[1], "home") == 0) {
+			AACGetServerPort();
+			AACSendTwoWayMessage(AACMessageIdPressHome, NULL);
+			return 0;
+		} 
 	} else if (argc == 3) {
 
 		NSString *identifier = [NSString stringWithCString:argv[2] encoding:NSUTF8StringEncoding];
 		NSLog(@"%@", identifier);
 
-		NSDictionary *appDict = [NSDictionary dictionaryWithObjectsAndKeys:identifier,@"Identifier", @"100", @"Duration",nil];
+		NSDictionary *appDict = [NSDictionary dictionaryWithObjectsAndKeys:identifier,@"Identifier", @"0", @"Duration",nil];
 
 		if (strcmp(argv[1], "launch") == 0) {
 			AACGetServerPort();
 			AACSendTwoWayMessage(AACMessageIdLaunchAppForTime, (CFDataRef)AACTransformPropertyListToData(appDict));
-			return 0;
-		} else if (strcmp(argv[1], "kill") == 0) {
-			AACGetServerPort();
-			CFDataRef returnData = AACSendTwoWayMessage(AACMessageIdListAllApps, NULL);
-			NSDictionary *applist = [AACConsume(AACTransformDataToPropertyList, returnData, nil) objectForKey:@"Apps"];
-			NSLog(@"%@",applist);
 			return 0;
 		} 
 	}
