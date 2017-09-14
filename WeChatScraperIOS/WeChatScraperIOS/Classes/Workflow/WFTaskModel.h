@@ -26,6 +26,8 @@
 
 + (instancetype)taskWithDesc:(NSString *)desc pageClassName:(NSString *)pageClassName operation:(void (^)(id<WFTaskModelDelegate> caller, WFTaskModel* task))operation;
 
+@property (nonatomic, assign) BOOL isTest;
+@property (nonatomic, assign) NSTimeInterval delay;
 @property (nonatomic, weak) id<WFTaskModelDelegate> delegate;
 @property (nonatomic, copy) NSString *pageClassName;
 @property (nonatomic, copy) NSString *desc;

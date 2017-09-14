@@ -27,8 +27,14 @@ task :reboot do
   end
 end
 
+desc "Collect Only Workflow"
+task :collectwf do 
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Workflow/* ./'
+end
+
 desc "Collect Files"
 task :collect do 
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Workflow/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/KIFAdditions/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Managers/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Monkey/* ./'
@@ -58,7 +64,7 @@ task :make do
   Net::SSH.start(phone_ip, "root") do |ssh|
     puts ssh.exec! "cd /debs ; dpkg -i #{last}"
     if need_reboot
-      puts ssh.exec! " killall -9 SpringBoard "
+      # puts ssh.exec! " killall -9 SpringBoard "
     end
   end
 

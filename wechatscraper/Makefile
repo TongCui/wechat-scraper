@@ -4,6 +4,7 @@ TARGET=iphone:latest:7.1
 ADDITIONAL_OBJCFLAGS = -fobjc-arc
 	
 FILES = CGGeometry-KIFAdditions.m \
+DDBaseItem.m \
 DDSwizzleManager.m \
 KIFTypist.m \
 MTAutomationBridge.m \
@@ -12,10 +13,13 @@ MTMonkeyTestManager.m \
 MTSenseLog.m \
 MTSenseOperation.m \
 MTVCSense.m \
+NSArray+Tools.m \
 NSBundle-KIFAdditions.m \
+NSDictionary+Tools.m \
 NSError-KIFAdditions.m \
 NSException-KIFAdditions.m \
 NSFileManager-KIFAdditions.m \
+NSObject+Tools.m \
 NSString+Tools.m \
 UIAccessibilityElement-KIFAdditions.m \
 UIApplication+Swizzle.m \
@@ -33,7 +37,10 @@ UIView-Debugging.m \
 UIView-KIFAdditions.m \
 UIViewController+Swizzle.m \
 UIViewController+Tools.m \
-UIWindow-KIFAdditions.m
+UIWindow-KIFAdditions.m \
+WFTaskManager.m \
+WFTaskModel.m \
+WFWorkflow.m 
 
 include theos/makefiles/common.mk
 

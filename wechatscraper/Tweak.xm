@@ -4,6 +4,7 @@
 #import <WebKit/WebKit.h>
 #import "MTAutomationBridge.h"
 #import "MTGridWindow.h"
+#import "WFTaskManager.h"
 
 @interface MMWebViewController
 
@@ -19,14 +20,16 @@
   DDLog(@"Wechat didFinishLaunchingWithOptions");
   [[MTGridWindow sharedInstance] makeKeyAndVisible];
   [MTGridWindow sharedInstance].userInteractionEnabled = NO;
+  [[WFTaskManager sharedInstance] setup];
   DDLog(@"Set up Grid window");
   return %orig;
 }
 
 %new
-- (void)testTap:(CGFloat)y {
-
-  CGPoint point = CGPointMake(50, y);
+- (void)testTap:(NSString *)xy {
+  NSArray *values = [xy componentsSeparatedByString:@","];
+  CGPoint point = CGPointMake([values.firstObject floatValue], [values.lastObject floatValue]);
+  
   [MTAutomationBridge tapPoint:point];
 }
 
@@ -35,31 +38,11 @@
 %hook UIViewController
 - (void)viewDidAppear:(BOOL)animated {
   DDLog(@"viewDidAppear %@", [[self class] description]); 
-  UIView *view = [(UIViewController *)self view];
-  [view bringSubviewToFront:[view viewWithTag:666]];
+
+  //  Post Notification
+  [[NSNotificationCenter defaultCenter] postNotificationName:kWF_ViewController_DidAppear_Notification object:nil userInfo:@{@"class": [[self class] description]}];
+ 
   %orig;
-}
-
-- (void)viewDidLoad {
-  DDLog(@"!!!!!!MMWebViewController!!!!!!!!");
-
-  %orig;
-  //  For test use
-    UIButton *testButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    testButton.frame = CGRectMake(100, 200, 100, 44);
-    testButton.tag = 666;
-    [testButton setTitle:@"Test" forState:UIControlStateNormal];
-    [testButton addTarget:self action:@selector(testokButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [[(UIViewController *)self view] addSubview:testButton];
-    //  End
-}
-
-%new
-- (void)testokButtonPressed:(id)sender {
-  DDLog(@"!!!!!!!!TODO!!!!!!!!!");
-  
-  CGPoint point = CGPointMake(50, 100);
-  [MTAutomationBridge tapPoint:point];
 }
 
 %end

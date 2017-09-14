@@ -13,5 +13,6 @@
 
 + (instancetype)sharedInstance;
 - (void)setup;
+- (void)start;
 
 @end

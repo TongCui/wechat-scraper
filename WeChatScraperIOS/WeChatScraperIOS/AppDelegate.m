@@ -55,6 +55,7 @@
     
     
     [[WFTaskManager sharedInstance] setup];
+    [[WFTaskManager sharedInstance] start];
     
     return YES;
 }

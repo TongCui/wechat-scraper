@@ -20,16 +20,24 @@
 }
 
 - (BOOL)isReady:(NSString *)vcClassName {
-    return [vcClassName isEqualToString:self.pageClassName];
+    return self.isTest || [vcClassName isEqualToString:self.pageClassName];
 }
 
 - (void)run:(id<WFTaskModelDelegate>)caller {
-    NSLog(@"Will Do Task: %@", self.desc);
-    self.operation(caller, self);
+    NSLog(@"Will Do Task (with delay %f): %@", self.delay, self.desc);
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.delegate = caller;
+        self.operation(caller, self);
+    });
+    
 }
 
 - (void)notifySuccessDelay:(NSTimeInterval)delay {
-    __weak typeof(self)weakSelf = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wignored-attributes"
+    __weak __typeof(self)weakSelf = self;
+#pragma clang diagnostic pop
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(taskDidFinish:)]) {
             [weakSelf.delegate taskDidFinish:weakSelf];

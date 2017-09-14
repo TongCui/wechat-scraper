@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "MTAutomationBridge.h"
 #import "Global.h"
+#import "WFTaskManager.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *clickButton;
@@ -23,7 +24,7 @@
     
     //  For test use
     UIButton *testButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    testButton.frame = CGRectMake(100, 200, 100, 44);
+    testButton.frame = CGRectMake(200, 100, 60, 44);
     [testButton setTitle:@"Test" forState:UIControlStateNormal];
     [testButton addTarget:self action:@selector(testButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:testButton];
@@ -33,9 +34,8 @@
 
 - (void)testButtonPressed:(id)sender {
     //  TODO: delete it
-    CGRect frame = self.clickButton.frame;
-    CGPoint point = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
-    [MTAutomationBridge tapPoint:point];
+    [[WFTaskManager sharedInstance] setup];
+    [[WFTaskManager sharedInstance] start];
 }
 
 - (void)didReceiveMemoryWarning {
