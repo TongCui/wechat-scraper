@@ -59,3 +59,7 @@ static NSInteger WFGrid = 10;
 
 #define CACHES_FOLDER       ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0])
 
+
+
+/** Notifications */
+#define kWF_ViewController_DidAppear_Notification  (@"kWF_ViewController_DidAppear_Notification")

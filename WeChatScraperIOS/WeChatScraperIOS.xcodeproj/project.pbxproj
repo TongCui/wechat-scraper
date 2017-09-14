@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075D80661F6A5C6600D4047B /* WFWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 075D80651F6A5C6600D4047B /* WFWorkflow.m */; };
 		07D26C0F1F693F1A00DB0767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C0E1F693F1A00DB0767 /* main.m */; };
 		07D26C121F693F1A00DB0767 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C111F693F1A00DB0767 /* AppDelegate.m */; };
 		07D26C151F693F1A00DB0767 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C141F693F1A00DB0767 /* ViewController.m */; };
@@ -58,10 +59,13 @@
 		07D26CB61F6A2E2D00DB0767 /* NSObject+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CB51F6A2E2D00DB0767 /* NSObject+Tools.m */; };
 		07D26CBB1F6A2E5200DB0767 /* NSArray+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CB81F6A2E5200DB0767 /* NSArray+Tools.m */; };
 		07D26CBC1F6A2E5200DB0767 /* NSDictionary+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CBA1F6A2E5200DB0767 /* NSDictionary+Tools.m */; };
-		07D26CC51F6A2FB400DB0767 /* WSTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */; };
+		07D26CC81F6A57F800DB0767 /* WFTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CC71F6A57F800DB0767 /* WFTaskModel.m */; };
+		07D26CCB1F6A58CB00DB0767 /* WFTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CCA1F6A58CB00DB0767 /* WFTaskManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		075D80641F6A5C6600D4047B /* WFWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWorkflow.h; sourceTree = "<group>"; };
+		075D80651F6A5C6600D4047B /* WFWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWorkflow.m; sourceTree = "<group>"; };
 		07D26C0A1F693F1A00DB0767 /* WeChatScraperIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatScraperIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D26C0E1F693F1A00DB0767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07D26C101F693F1A00DB0767 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,8 +170,10 @@
 		07D26CB81F6A2E5200DB0767 /* NSArray+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Tools.m"; sourceTree = "<group>"; };
 		07D26CB91F6A2E5200DB0767 /* NSDictionary+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Tools.h"; sourceTree = "<group>"; };
 		07D26CBA1F6A2E5200DB0767 /* NSDictionary+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Tools.m"; sourceTree = "<group>"; };
-		07D26CC31F6A2FB400DB0767 /* WSTaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTaskModel.h; sourceTree = "<group>"; };
-		07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSTaskModel.m; sourceTree = "<group>"; };
+		07D26CC61F6A57F800DB0767 /* WFTaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFTaskModel.h; sourceTree = "<group>"; };
+		07D26CC71F6A57F800DB0767 /* WFTaskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFTaskModel.m; sourceTree = "<group>"; };
+		07D26CC91F6A58CB00DB0767 /* WFTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFTaskManager.h; sourceTree = "<group>"; };
+		07D26CCA1F6A58CB00DB0767 /* WFTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFTaskManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,8 +398,12 @@
 			children = (
 				07D26CB11F6A2DB400DB0767 /* DDBaseItem.h */,
 				07D26CB21F6A2DB400DB0767 /* DDBaseItem.m */,
-				07D26CC31F6A2FB400DB0767 /* WSTaskModel.h */,
-				07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */,
+				07D26CC91F6A58CB00DB0767 /* WFTaskManager.h */,
+				07D26CCA1F6A58CB00DB0767 /* WFTaskManager.m */,
+				075D80641F6A5C6600D4047B /* WFWorkflow.h */,
+				075D80651F6A5C6600D4047B /* WFWorkflow.m */,
+				07D26CC61F6A57F800DB0767 /* WFTaskModel.h */,
+				07D26CC71F6A57F800DB0767 /* WFTaskModel.m */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -479,6 +489,7 @@
 				07D26C151F693F1A00DB0767 /* ViewController.m in Sources */,
 				07D26CAC1F6940BF00DB0767 /* UIViewController+Swizzle.m in Sources */,
 				07D26C9B1F69409700DB0767 /* MTMonkeyTestManager.m in Sources */,
+				075D80661F6A5C6600D4047B /* WFWorkflow.m in Sources */,
 				07D26C7D1F693F7200DB0767 /* UIView-KIFAdditions.m in Sources */,
 				07D26C7E1F693F7200DB0767 /* UIWindow-KIFAdditions.m in Sources */,
 				07D26C731F693F7200DB0767 /* NSError-KIFAdditions.m in Sources */,
@@ -490,6 +501,7 @@
 				07D26C701F693F7200DB0767 /* CGGeometry-KIFAdditions.m in Sources */,
 				07D26CAA1F6940BF00DB0767 /* UIApplication+Swizzle.m in Sources */,
 				07D26C7B1F693F7200DB0767 /* UITouch-KIFAdditions.m in Sources */,
+				07D26CC81F6A57F800DB0767 /* WFTaskModel.m in Sources */,
 				07D26C7F1F693F7200DB0767 /* NSString+Tools.m in Sources */,
 				07D26C831F693F7200DB0767 /* UIViewController+Tools.m in Sources */,
 				07D26C751F693F7200DB0767 /* NSFileManager-KIFAdditions.m in Sources */,
@@ -503,7 +515,6 @@
 				07D26C761F693F7200DB0767 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				07D26C801F693F7200DB0767 /* UIApplication+Tools.m in Sources */,
 				07D26C6B1F693F7200DB0767 /* AFSecurityPolicy.m in Sources */,
-				07D26CC51F6A2FB400DB0767 /* WSTaskModel.m in Sources */,
 				07D26C781F693F7200DB0767 /* UIEvent+KIFAdditions.m in Sources */,
 				07D26CBC1F6A2E5200DB0767 /* NSDictionary+Tools.m in Sources */,
 				07D26C691F693F7200DB0767 /* AFHTTPSessionManager.m in Sources */,
@@ -517,6 +528,7 @@
 				07D26C0F1F693F1A00DB0767 /* main.m in Sources */,
 				07D26C741F693F7200DB0767 /* NSException-KIFAdditions.m in Sources */,
 				07D26C7C1F693F7200DB0767 /* UIView-Debugging.m in Sources */,
+				07D26CCB1F6A58CB00DB0767 /* WFTaskManager.m in Sources */,
 				07D26C771F693F7200DB0767 /* UIApplication-KIFAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,6 +698,7 @@
 				07D26C231F693F1A00DB0767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

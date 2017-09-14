@@ -13,6 +13,7 @@
 #import "MTGridWindow.h"
 #import "MTMonkeyTestManager.h"
 #import "DDSwizzleManager.h"
+#import "WFTaskManager.h"
 
 @interface AppDelegate ()
 
@@ -52,6 +53,8 @@
     DDLog(@"linking UIAutomation framework...");
     dlopen([@"/Developer/Library/PrivateFrameworks/UIAutomation.framework/UIAutomation" fileSystemRepresentation], RTLD_LOCAL);
     
+    
+    [[WFTaskManager sharedInstance] setup];
     
     return YES;
 }
