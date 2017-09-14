@@ -1,0 +1,9 @@
+Package: com.luckytr.phonemanager
+Name: phonemanager
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: Phone Applications Manager
+Maintainer: tcui
+Author: tcui
+Section: Tweaks

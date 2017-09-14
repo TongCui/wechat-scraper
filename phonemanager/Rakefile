@@ -51,8 +51,15 @@ task :make do
   puts "> Last file is #{last}..."
   sh "scp #{last} root@#{phone_ip}:/debs/"
 
+  folder = Dir.pwd.split(File::SEPARATOR)[-1]
+  plist_path = File.join(Dir.pwd, "#{folder}.plist")
+  need_reboot = File.open(plist_path){|f|f.read}.include? "com.apple.springboard"
+
   Net::SSH.start(phone_ip, "root") do |ssh|
-    puts ssh.exec! "cd /debs ; ls -al ; dpkg -i #{last}"
+    puts ssh.exec! "cd /debs ; dpkg -i #{last}"
+    if need_reboot
+      puts ssh.exec! " killall -9 SpringBoard "
+    end
   end
 
 end

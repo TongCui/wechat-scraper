@@ -65,6 +65,8 @@ iOSInjectionProject/
 
 # Logos
 wechatscraper/.theos/*
-wechatscraper/com.luckytr.wechat.scraper*
+wechatscraper/com.luckytr.*
 wechatscraper/*.h
 wechatscraper/*.m
+phonemanager/.theos/*
+phonemanager/com.luckytr.*

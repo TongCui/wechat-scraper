@@ -1,5 +1,5 @@
 ARCHS = armv7 armv7s arm64
-TARGET=iphone:latest:8.0
+TARGET=iphone:latest:7.1
 
 ADDITIONAL_OBJCFLAGS = -fobjc-arc
 	
@@ -42,6 +42,11 @@ wechatscraper_FILES = $(FILES) Tweak.xm
 wechatscraper_FRAMEWORKS = UIKit CoreGraphics Foundation SystemConfiguration CFNetwork Security MobileCoreServices IOKit WebKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+
+TOOL_NAME = wscraper
+wscraper_FILES = main.mm
+
+include $(THEOS_MAKE_PATH)/tool.mk
 
 after-install::
 	install.exec "killall -9 SpringBoard"

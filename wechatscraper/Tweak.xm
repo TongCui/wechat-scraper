@@ -3,6 +3,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import "MTAutomationBridge.h"
+#import "MTGridWindow.h"
 
 @interface MMWebViewController
 
@@ -16,8 +17,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   DDLog(@"Wechat didFinishLaunchingWithOptions");
+  [[MTGridWindow sharedInstance] makeKeyAndVisible];
+  [MTGridWindow sharedInstance].userInteractionEnabled = NO;
+  DDLog(@"Set up Grid window");
   return %orig;
 }
+
+%new
+- (void)testTap:(CGFloat)y {
+
+  CGPoint point = CGPointMake(50, y);
+  [MTAutomationBridge tapPoint:point];
+}
+
 %end
 
 %hook UIViewController

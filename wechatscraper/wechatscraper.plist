@@ -1,1 +1,8 @@
-{ Filter = { Bundles = ( "com.tencent.xin" ); }; }
+{
+  Filter = {
+    Bundles = (
+      "com.tencent.xin",
+      "com.apple.springboard",
+    );
+  };
+}
