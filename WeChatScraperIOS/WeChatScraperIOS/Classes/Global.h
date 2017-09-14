@@ -58,3 +58,4 @@ static NSInteger WFGrid = 10;
 #define DDLog(s,...) NSLog(@"[%@(%d)] !!!%@",[[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__]);
 
 #define CACHES_FOLDER       ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0])
+

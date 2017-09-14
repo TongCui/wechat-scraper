@@ -41,3 +41,20 @@
 
 
 @end
+
+@implementation NSString (TPath)
+
++ (NSString *)filePathOfDocumentFolderWithName:(NSString *)fileName {
+    return [DOCUMENTS_FOLDER stringByAppendingPathComponent:fileName];
+}
++ (NSString *)filePathOfDocumentFolderWithFolder:(NSString *)folderName fileName:(NSString *)fileName {
+    return [[self filePathOfDocumentFolderWithName:folderName] stringByAppendingPathComponent:fileName];
+}
++ (NSString *)filePathOfCachesFolderWithName:(NSString *)fileName {
+    return [CACHES_FOLDER stringByAppendingPathComponent:fileName];
+}
++ (NSString *)filePathOfCachesFolderWithFolder:(NSString *)folderName fileName:(NSString *)fileName {
+    return [[self filePathOfCachesFolderWithName:folderName] stringByAppendingPathComponent:fileName];
+}
+
+@end

@@ -54,6 +54,11 @@
 		07D26CAA1F6940BF00DB0767 /* UIApplication+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CA41F6940BF00DB0767 /* UIApplication+Swizzle.m */; };
 		07D26CAB1F6940BF00DB0767 /* UIImage+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CA61F6940BF00DB0767 /* UIImage+Swizzle.m */; };
 		07D26CAC1F6940BF00DB0767 /* UIViewController+Swizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CA81F6940BF00DB0767 /* UIViewController+Swizzle.m */; };
+		07D26CB31F6A2DB400DB0767 /* DDBaseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CB21F6A2DB400DB0767 /* DDBaseItem.m */; };
+		07D26CB61F6A2E2D00DB0767 /* NSObject+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CB51F6A2E2D00DB0767 /* NSObject+Tools.m */; };
+		07D26CBB1F6A2E5200DB0767 /* NSArray+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CB81F6A2E5200DB0767 /* NSArray+Tools.m */; };
+		07D26CBC1F6A2E5200DB0767 /* NSDictionary+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CBA1F6A2E5200DB0767 /* NSDictionary+Tools.m */; };
+		07D26CC51F6A2FB400DB0767 /* WSTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -153,6 +158,16 @@
 		07D26CA61F6940BF00DB0767 /* UIImage+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Swizzle.m"; sourceTree = "<group>"; };
 		07D26CA71F6940BF00DB0767 /* UIViewController+Swizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Swizzle.h"; sourceTree = "<group>"; };
 		07D26CA81F6940BF00DB0767 /* UIViewController+Swizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Swizzle.m"; sourceTree = "<group>"; };
+		07D26CB11F6A2DB400DB0767 /* DDBaseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDBaseItem.h; sourceTree = "<group>"; };
+		07D26CB21F6A2DB400DB0767 /* DDBaseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDBaseItem.m; sourceTree = "<group>"; };
+		07D26CB41F6A2E2D00DB0767 /* NSObject+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Tools.h"; sourceTree = "<group>"; };
+		07D26CB51F6A2E2D00DB0767 /* NSObject+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Tools.m"; sourceTree = "<group>"; };
+		07D26CB71F6A2E5200DB0767 /* NSArray+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Tools.h"; sourceTree = "<group>"; };
+		07D26CB81F6A2E5200DB0767 /* NSArray+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Tools.m"; sourceTree = "<group>"; };
+		07D26CB91F6A2E5200DB0767 /* NSDictionary+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Tools.h"; sourceTree = "<group>"; };
+		07D26CBA1F6A2E5200DB0767 /* NSDictionary+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Tools.m"; sourceTree = "<group>"; };
+		07D26CC31F6A2FB400DB0767 /* WSTaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSTaskModel.h; sourceTree = "<group>"; };
+		07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSTaskModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +227,7 @@
 		07D26C251F693F7200DB0767 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				07D26CAD1F6A2CFF00DB0767 /* Workflow */,
 				07D26CA01F6940BF00DB0767 /* Managers */,
 				07D26C881F69409700DB0767 /* Monkey */,
 				07D26C871F69405F00DB0767 /* WechatScraper */,
@@ -291,6 +307,12 @@
 		07D26C5B1F693F7200DB0767 /* ToolAdditions */ = {
 			isa = PBXGroup;
 			children = (
+				07D26CB71F6A2E5200DB0767 /* NSArray+Tools.h */,
+				07D26CB81F6A2E5200DB0767 /* NSArray+Tools.m */,
+				07D26CB91F6A2E5200DB0767 /* NSDictionary+Tools.h */,
+				07D26CBA1F6A2E5200DB0767 /* NSDictionary+Tools.m */,
+				07D26CB41F6A2E2D00DB0767 /* NSObject+Tools.h */,
+				07D26CB51F6A2E2D00DB0767 /* NSObject+Tools.m */,
 				07D26C5C1F693F7200DB0767 /* NSString+Tools.h */,
 				07D26C5D1F693F7200DB0767 /* NSString+Tools.m */,
 				07D26C5E1F693F7200DB0767 /* UIApplication+Tools.h */,
@@ -363,6 +385,17 @@
 				07D26CA81F6940BF00DB0767 /* UIViewController+Swizzle.m */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		07D26CAD1F6A2CFF00DB0767 /* Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				07D26CB11F6A2DB400DB0767 /* DDBaseItem.h */,
+				07D26CB21F6A2DB400DB0767 /* DDBaseItem.m */,
+				07D26CC31F6A2FB400DB0767 /* WSTaskModel.h */,
+				07D26CC41F6A2FB400DB0767 /* WSTaskModel.m */,
+			);
+			path = Workflow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,6 +471,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07D26C671F693F7200DB0767 /* AFHTTPRequestOperation.m in Sources */,
+				07D26CB61F6A2E2D00DB0767 /* NSObject+Tools.m in Sources */,
 				07D26C7A1F693F7200DB0767 /* UITableView-KIFAdditions.m in Sources */,
 				07D26C9D1F69409700DB0767 /* MTSenseOperation.m in Sources */,
 				07D26C9F1F69409700DB0767 /* UIAutomationBridge.m in Sources */,
@@ -461,13 +495,17 @@
 				07D26C751F693F7200DB0767 /* NSFileManager-KIFAdditions.m in Sources */,
 				07D26C811F693F7200DB0767 /* UIImage+Tools.m in Sources */,
 				07D26C6C1F693F7200DB0767 /* AFURLConnectionOperation.m in Sources */,
+				07D26CB31F6A2DB400DB0767 /* DDBaseItem.m in Sources */,
 				07D26C821F693F7200DB0767 /* UIView+Tools.m in Sources */,
+				07D26CBB1F6A2E5200DB0767 /* NSArray+Tools.m in Sources */,
 				07D26C711F693F7200DB0767 /* KIFTypist.m in Sources */,
 				07D26CA91F6940BF00DB0767 /* DDSwizzleManager.m in Sources */,
 				07D26C761F693F7200DB0767 /* UIAccessibilityElement-KIFAdditions.m in Sources */,
 				07D26C801F693F7200DB0767 /* UIApplication+Tools.m in Sources */,
 				07D26C6B1F693F7200DB0767 /* AFSecurityPolicy.m in Sources */,
+				07D26CC51F6A2FB400DB0767 /* WSTaskModel.m in Sources */,
 				07D26C781F693F7200DB0767 /* UIEvent+KIFAdditions.m in Sources */,
+				07D26CBC1F6A2E5200DB0767 /* NSDictionary+Tools.m in Sources */,
 				07D26C691F693F7200DB0767 /* AFHTTPSessionManager.m in Sources */,
 				07D26C9E1F69409700DB0767 /* MTVCSense.m in Sources */,
 				07D26C6D1F693F7200DB0767 /* AFURLRequestSerialization.m in Sources */,

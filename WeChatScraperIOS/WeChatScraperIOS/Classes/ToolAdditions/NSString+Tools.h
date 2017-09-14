@@ -21,6 +21,18 @@
 
 @end
 
+@interface NSString (TPath)
+
+#define DOCUMENTS_FOLDER    ([NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0])
+#define CACHES_FOLDER       ([NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0])
+
++ (NSString *)filePathOfDocumentFolderWithName:(NSString *)fileName;
++ (NSString *)filePathOfDocumentFolderWithFolder:(NSString *)folderName fileName:(NSString *)fileName;
++ (NSString *)filePathOfCachesFolderWithName:(NSString *)fileName;
++ (NSString *)filePathOfCachesFolderWithFolder:(NSString *)folderName fileName:(NSString *)fileName;
+
+@end
+
 
 
 
