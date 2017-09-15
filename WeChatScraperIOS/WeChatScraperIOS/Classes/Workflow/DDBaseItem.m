@@ -162,6 +162,8 @@
         }
 
     }
+    
+    [dict removeObjectForKey:@"fake"];
     return dict;
 }
 

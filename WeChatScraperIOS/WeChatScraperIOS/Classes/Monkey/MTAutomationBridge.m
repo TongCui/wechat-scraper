@@ -72,9 +72,13 @@
 
 
 + (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir {
+    return [self swipeView:view inDirection:dir offset:50];
+}
+
++ (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir offset:(NSUInteger)offset {
     CGPoint startPoint = CGPointCenteredInRect(view.bounds);
     CGPoint endPoint = startPoint;
-    CGFloat distance = 50;
+    CGFloat distance = offset;
     switch (dir) {
         case PADirectionLeft:
             endPoint = CGPointMake(startPoint.x - distance, startPoint.y);

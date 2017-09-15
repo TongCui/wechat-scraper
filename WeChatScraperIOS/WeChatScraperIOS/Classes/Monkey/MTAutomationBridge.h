@@ -19,6 +19,7 @@
 + (CGPoint) tapView:(UIView *)view;
 
 + (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir;
++ (NSArray *) swipeView:(UIView *)view inDirection:(PADirection)dir offset:(NSUInteger)offset;
 + (void)swipeTutorialWithScrollView:(UIScrollView *)scrollView;
 
 + (void)showPointWithTouch:(UITouch *)touch;

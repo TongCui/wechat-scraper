@@ -16,6 +16,7 @@
     model.desc = desc;
     model.pageClassName = pageClassName;
     model.operation = operation;
+    model.delay = 1.0f;
     return model;
 }
 
@@ -24,13 +25,14 @@
 }
 
 - (void)run:(id<WFTaskModelDelegate>)caller {
-    NSLog(@"Will Do Task (with delay %f): %@", self.delay, self.desc);
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.delegate = caller;
-        self.operation(caller, self);
-    });
+    self.delegate = caller;
+    self.operation(caller, self);
     
+}
+
+- (UIViewController *)viewController {
+    return [WFTaskManager sharedInstance].lastViewController;
 }
 
 - (void)notifySuccessDelay:(NSTimeInterval)delay {
@@ -44,6 +46,12 @@
         }
     });
     
+}
+
+- (void)notifyFailed:(NSString *)errorMessage {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(taskDidFail:message:)]) {
+        [self.delegate taskDidFail:self message:errorMessage];
+    }
 }
 
 @end

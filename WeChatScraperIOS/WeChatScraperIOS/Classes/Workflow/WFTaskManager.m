@@ -10,11 +10,15 @@
 #import "WFTaskModel.h"
 #import "Global.h"
 #import "WFWorkflow.h"
+#import "DDJSONKit.h"
+
+#import "WFWechatSessionLog.h"
+#import "WFWechatAccountLog.h"
+#import "WFWechatArticleLog.h"
 
 @interface WFTaskManager () <WFTaskModelDelegate>
 
 @property (nonatomic, strong) NSMutableArray<WFTaskModel *> *tasks;
-@property (nonatomic, strong) NSString *lastViewController;
 @property (nonatomic, assign) BOOL isRunning;
 
 
@@ -22,7 +26,13 @@
 
 @implementation WFTaskManager
 
-
+#pragma mark - Accessors
+- (WFWechatSessionLog *)log {
+    if (nil == _log) {
+        _log = [[WFWechatSessionLog alloc] init];
+    }
+    return _log;
+}
 
 
 #pragma mark - Life cycle
@@ -45,45 +55,72 @@
     self.tasks = [[WFWorkflow wechatScraperWorkflow] mutableCopy];
 }
 
+- (void)setupTest {
+    self.tasks = [[WFWorkflow testWorkflow] mutableCopy];
+}
+
+
 - (void)start {
     [self.tasks.firstObject run:self];
 }
 
 - (void)consume {
     WFTaskModel *firstTask = self.tasks.firstObject;
-    if ([firstTask isReady:self.lastViewController]) {
-        [firstTask run:self];
-    } else {
-        [self notifyError:@"[WF Error] Expected page is not shown!"];
-    }
+    DDLog(@"~~~%@, %@", self.lastVCClassName, self.lastViewController);
+    DDLog(@"~~~%@", firstTask.pageClassName);
+    
+    DDLog(@"[WF] Will Do Task (with delay %f) (target page %@): %@", firstTask.delay, firstTask.pageClassName, firstTask.desc);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(firstTask.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        if ([firstTask isReady:self.lastVCClassName]) {
+            DDLog(@"run");
+            [firstTask run:self];
+        } else {
+            [self notifyError:@"[WF Error] Expected page is not shown!"];
+        }
+        
+    });
+    
+    
 }
 
 - (void)notifyError:(NSString *)errorMessage {
     [self.tasks removeAllObjects];
     self.isRunning = NO;
-    //  TODO:
+    DDLog(@"%@", errorMessage);
+    DDLog(@"======");
+    DDLog(@"%@", self.log.infoDict.JSONString);
 }
 
 - (void)notifyFinish {
     self.isRunning = NO;
     DDLog(@"All Tasks are finished!! Well Done!!!");
+    DDLog(@"======");
+    DDLog(@"%@", self.log.infoDict.JSONString);
 }
 
 #pragma mark - Notifications
-- (BOOL)shouldIgnoreViewController:(NSString *)viewController {
-    if ([viewController hasPrefix:@"UI"] || [viewController hasPrefix:@"_"]) {
+- (BOOL)shouldIgnoreViewController:(UIViewController *)viewController {
+    if (nil == viewController) {
+        return YES;
+    }
+    NSString *className = [[viewController class] description];
+    if ([className hasPrefix:@"UI"] || [className hasPrefix:@"_"]) {
         return YES;
     }
     return NO;
 }
 
 - (void)viewDidAppearNotification:(NSNotification *)notification {
-    if ([self shouldIgnoreViewController:notification.userInfo[@"class"]]) {
+    if ([self shouldIgnoreViewController:notification.object]) {
+        NSLog(@"Should ignore viewcontroller %@", notification.object);
         return;
     }
-    self.lastViewController = notification.userInfo[@"class"];
-    DDLog(@"[WF]Update Last ViewController %@", notification.userInfo);
-    if (!self.isRunning && [self.tasks.firstObject isReady:self.lastViewController]) {
+    self.lastViewController = notification.object;
+    self.lastVCClassName = [[self.lastViewController class] description];
+    
+    DDLog(@"[WF]Update Last ViewController %@", self.lastVCClassName);
+    if (!self.isRunning && [self.tasks.firstObject isReady:self.lastVCClassName]) {
         self.isRunning = YES;
         [self consume];
     }
@@ -96,8 +133,10 @@
         [self.tasks removeObjectAtIndex:0];
     }
     if (self.tasks.count == 0) {
+        DDLog(@"[WF] Finish All Tasks");
         [self notifyFinish];
     } else {
+        DDLog(@"[WF] Consume Next Task");
         [self consume];
     }
     

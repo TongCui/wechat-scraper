@@ -5,7 +5,7 @@
 //  Created by tcui on 14/9/2017.
 //  Copyright © 2017 LuckyTR. All rights reserved.
 //
-
+#import <UIKit/UIKit.h>
 #import "DDBaseItem.h"
 
 
@@ -27,15 +27,18 @@
 + (instancetype)taskWithDesc:(NSString *)desc pageClassName:(NSString *)pageClassName operation:(void (^)(id<WFTaskModelDelegate> caller, WFTaskModel* task))operation;
 
 @property (nonatomic, assign) BOOL isTest;
+@property (nonatomic, assign) NSUInteger retryCount;
 @property (nonatomic, assign) NSTimeInterval delay;
 @property (nonatomic, weak) id<WFTaskModelDelegate> delegate;
 @property (nonatomic, copy) NSString *pageClassName;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) void (^operation)(id<WFTaskModelDelegate> caller, WFTaskModel *task);
+@property (nonatomic, readonly) UIViewController *viewController;
 
 
 - (BOOL)isReady:(NSString *)vcClassName;
 - (void)run:(id<WFTaskModelDelegate>)caller;
 - (void)notifySuccessDelay:(NSTimeInterval)delay;
+- (void)notifyFailed:(NSString *)errorMessage;
 
 @end

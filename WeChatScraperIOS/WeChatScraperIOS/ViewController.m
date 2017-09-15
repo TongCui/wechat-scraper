@@ -10,6 +10,9 @@
 #import "MTAutomationBridge.h"
 #import "Global.h"
 #import "WFTaskManager.h"
+#import "WFWechatSessionLog.h"
+#import "WFWechatAccountLog.h"
+
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *clickButton;
@@ -36,13 +39,29 @@
 }
 
 - (void)testButtonPressed:(id)sender {
-    //  TODO: delete it
-    UITableView *tableView = nil;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-       [MTAutomationBridge tapView:]
-    });
     
-    [[WFTaskManager sharedInstance] setup];
+
+//    id result = @"123123123";
+//    DDLog(@"%@", [result class]);
+//    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains
+//    (NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    
+//    //make a file name to write the data to using the documents directory:
+//    NSString *fileName = [NSString stringWithFormat:@"%@/%@.html",
+//                          documentsDirectory, [[NSDate date] description]];
+//    
+//    DDLog(@"Write html to %@", fileName);
+//    DDLog(@"======");
+//    DDLog(@"%@", result);
+//    //save content to the documents directory
+//    BOOL res = [result writeToFile:fileName atomically:YES encoding:NSStringEncodingConversionAllowLossy error:nil];
+//    DDLog(@"result is %@", @(res));
+    
+    [WFTaskManager sharedInstance].lastViewController = self;
+    [WFTaskManager sharedInstance].lastVCClassName = @"ViewController";
+    [[WFTaskManager sharedInstance] setupTest];
     [[WFTaskManager sharedInstance] start];
 }
 

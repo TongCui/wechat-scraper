@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		075D80661F6A5C6600D4047B /* WFWorkflow.m in Sources */ = {isa = PBXBuildFile; fileRef = 075D80651F6A5C6600D4047B /* WFWorkflow.m */; };
+		079C79CB1F6B48E100671F6F /* WFWechatSessionLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79CA1F6B48E100671F6F /* WFWechatSessionLog.m */; };
+		079C79CE1F6B48EF00671F6F /* WFWechatAccountLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79CD1F6B48EF00671F6F /* WFWechatAccountLog.m */; };
+		079C79D11F6B48F900671F6F /* WFWechatArticleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79D01F6B48F900671F6F /* WFWechatArticleLog.m */; };
+		079C79D51F6B50E900671F6F /* DDJSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79D41F6B50E900671F6F /* DDJSONKit.m */; };
 		07D26C0F1F693F1A00DB0767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C0E1F693F1A00DB0767 /* main.m */; };
 		07D26C121F693F1A00DB0767 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C111F693F1A00DB0767 /* AppDelegate.m */; };
 		07D26C151F693F1A00DB0767 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C141F693F1A00DB0767 /* ViewController.m */; };
@@ -66,6 +70,14 @@
 /* Begin PBXFileReference section */
 		075D80641F6A5C6600D4047B /* WFWorkflow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWorkflow.h; sourceTree = "<group>"; };
 		075D80651F6A5C6600D4047B /* WFWorkflow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWorkflow.m; sourceTree = "<group>"; };
+		079C79C91F6B48E100671F6F /* WFWechatSessionLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWechatSessionLog.h; sourceTree = "<group>"; };
+		079C79CA1F6B48E100671F6F /* WFWechatSessionLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWechatSessionLog.m; sourceTree = "<group>"; };
+		079C79CC1F6B48EF00671F6F /* WFWechatAccountLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWechatAccountLog.h; sourceTree = "<group>"; };
+		079C79CD1F6B48EF00671F6F /* WFWechatAccountLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWechatAccountLog.m; sourceTree = "<group>"; };
+		079C79CF1F6B48F900671F6F /* WFWechatArticleLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFWechatArticleLog.h; sourceTree = "<group>"; };
+		079C79D01F6B48F900671F6F /* WFWechatArticleLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFWechatArticleLog.m; sourceTree = "<group>"; };
+		079C79D31F6B50E900671F6F /* DDJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDJSONKit.h; sourceTree = "<group>"; };
+		079C79D41F6B50E900671F6F /* DDJSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDJSONKit.m; sourceTree = "<group>"; };
 		07D26C0A1F693F1A00DB0767 /* WeChatScraperIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatScraperIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D26C0E1F693F1A00DB0767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07D26C101F693F1A00DB0767 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -188,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		079C79D21F6B50E900671F6F /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				079C79D31F6B50E900671F6F /* DDJSONKit.h */,
+				079C79D41F6B50E900671F6F /* DDJSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		07D26C011F693F1A00DB0767 = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +254,7 @@
 		07D26C251F693F7200DB0767 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				079C79D21F6B50E900671F6F /* JSONKit */,
 				07D26CAD1F6A2CFF00DB0767 /* Workflow */,
 				07D26CA01F6940BF00DB0767 /* Managers */,
 				07D26C881F69409700DB0767 /* Monkey */,
@@ -404,6 +426,12 @@
 				075D80651F6A5C6600D4047B /* WFWorkflow.m */,
 				07D26CC61F6A57F800DB0767 /* WFTaskModel.h */,
 				07D26CC71F6A57F800DB0767 /* WFTaskModel.m */,
+				079C79C91F6B48E100671F6F /* WFWechatSessionLog.h */,
+				079C79CA1F6B48E100671F6F /* WFWechatSessionLog.m */,
+				079C79CC1F6B48EF00671F6F /* WFWechatAccountLog.h */,
+				079C79CD1F6B48EF00671F6F /* WFWechatAccountLog.m */,
+				079C79CF1F6B48F900671F6F /* WFWechatArticleLog.h */,
+				079C79D01F6B48F900671F6F /* WFWechatArticleLog.m */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -480,6 +508,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079C79CB1F6B48E100671F6F /* WFWechatSessionLog.m in Sources */,
 				07D26C671F693F7200DB0767 /* AFHTTPRequestOperation.m in Sources */,
 				07D26CB61F6A2E2D00DB0767 /* NSObject+Tools.m in Sources */,
 				07D26C7A1F693F7200DB0767 /* UITableView-KIFAdditions.m in Sources */,
@@ -491,6 +520,7 @@
 				07D26C9B1F69409700DB0767 /* MTMonkeyTestManager.m in Sources */,
 				075D80661F6A5C6600D4047B /* WFWorkflow.m in Sources */,
 				07D26C7D1F693F7200DB0767 /* UIView-KIFAdditions.m in Sources */,
+				079C79D11F6B48F900671F6F /* WFWechatArticleLog.m in Sources */,
 				07D26C7E1F693F7200DB0767 /* UIWindow-KIFAdditions.m in Sources */,
 				07D26C731F693F7200DB0767 /* NSError-KIFAdditions.m in Sources */,
 				07D26C991F69409700DB0767 /* MTAutomationBridge.m in Sources */,
@@ -506,6 +536,7 @@
 				07D26C831F693F7200DB0767 /* UIViewController+Tools.m in Sources */,
 				07D26C751F693F7200DB0767 /* NSFileManager-KIFAdditions.m in Sources */,
 				07D26C811F693F7200DB0767 /* UIImage+Tools.m in Sources */,
+				079C79CE1F6B48EF00671F6F /* WFWechatAccountLog.m in Sources */,
 				07D26C6C1F693F7200DB0767 /* AFURLConnectionOperation.m in Sources */,
 				07D26CB31F6A2DB400DB0767 /* DDBaseItem.m in Sources */,
 				07D26C821F693F7200DB0767 /* UIView+Tools.m in Sources */,
@@ -523,6 +554,7 @@
 				07D26C6F1F693F7200DB0767 /* AFURLSessionManager.m in Sources */,
 				07D26CAB1F6940BF00DB0767 /* UIImage+Swizzle.m in Sources */,
 				07D26C791F693F7200DB0767 /* UIScrollView-KIFAdditions.m in Sources */,
+				079C79D51F6B50E900671F6F /* DDJSONKit.m in Sources */,
 				07D26C121F693F1A00DB0767 /* AppDelegate.m in Sources */,
 				07D26C721F693F7200DB0767 /* NSBundle-KIFAdditions.m in Sources */,
 				07D26C0F1F693F1A00DB0767 /* main.m in Sources */,

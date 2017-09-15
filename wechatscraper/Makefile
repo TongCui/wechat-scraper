@@ -5,6 +5,7 @@ ADDITIONAL_OBJCFLAGS = -fobjc-arc
 	
 FILES = CGGeometry-KIFAdditions.m \
 DDBaseItem.m \
+DDJSONKit.m \
 DDSwizzleManager.m \
 KIFTypist.m \
 MTAutomationBridge.m \
@@ -40,7 +41,10 @@ UIViewController+Tools.m \
 UIWindow-KIFAdditions.m \
 WFTaskManager.m \
 WFTaskModel.m \
-WFWorkflow.m 
+WFWechatAccountLog.m \
+WFWechatArticleLog.m \
+WFWechatSessionLog.m \
+WFWorkflow.m
 
 include theos/makefiles/common.mk
 

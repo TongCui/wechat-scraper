@@ -43,6 +43,7 @@ end
 desc "Collect Files"
 task :collect do 
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Workflow/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/JSONKit/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/KIFAdditions/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Managers/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Monkey/* ./'
@@ -64,16 +65,19 @@ task :make do
   last = File.open(last_packate_file_path, 'r') {|f| f.read}.strip
   puts "> Last file is #{last}..."
   sh "scp #{last} root@#{phone_ip}:/debs/"
-
-  folder = Dir.pwd.split(File::SEPARATOR)[-1]
-  plist_path = File.join(Dir.pwd, "#{folder}.plist")
-  need_reboot = File.open(plist_path){|f|f.read}.include? "com.apple.springboard"
-
   Net::SSH.start(phone_ip, "root") do |ssh|
     puts ssh.exec! "cd /debs ; dpkg -i #{last}"
-    if need_reboot
-      # puts ssh.exec! " killall -9 SpringBoard "
-    end
   end
 
+end
+
+desc "Restart Wechat"
+task :rw do
+  Net::SSH.start(phone_ip, "root") do |ssh|
+    puts ssh.exec! "wmanager home"
+    puts ssh.exec! "sleep 1"
+    puts ssh.exec! "wmanager killall"
+    puts ssh.exec! "sleep 0.3"
+    puts ssh.exec! "wmanager launch com.tencent.xin"
+  end
 end

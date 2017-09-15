@@ -54,8 +54,8 @@
     dlopen([@"/Developer/Library/PrivateFrameworks/UIAutomation.framework/UIAutomation" fileSystemRepresentation], RTLD_LOCAL);
     
     
-    [[WFTaskManager sharedInstance] setup];
-    [[WFTaskManager sharedInstance] start];
+//    [[WFTaskManager sharedInstance] setup];
+//    [[WFTaskManager sharedInstance] start];
     
     return YES;
 }
