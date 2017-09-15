@@ -23,9 +23,9 @@
     return @[
              @"rmrbwx",
              @"zhanhao668",
-             @"yetingfm",
-             @"lengtoo",
-             @"mimeng7",
+//             @"yetingfm",
+//             @"lengtoo",
+//             @"mimeng7",
 //             @"QQ_shijuezhi",
 //             @"duhaoshu",
 //             @"gaoshi222",
@@ -57,9 +57,9 @@
     WFTaskModel *task = nil;
     
     NSTimeInterval nDelay = 1.0f;
-    NSTimeInterval sDelay = 0.6f;
-    NSTimeInterval lDelay = 1.5f;
-    NSTimeInterval webLoadDelay = 1.8f;
+    NSTimeInterval sDelay = 0.5f;
+    NSTimeInterval lDelay = 1.8f;
+    NSTimeInterval webLoadDelay = 2.0f;
     
     
     //  Go To search page
@@ -104,13 +104,13 @@
         
         
         //  Search keyword
-        task = [WFTaskModel taskWithDesc:@"search 'Account ID'" pageClassName:@"FindBrandViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
+        task = [WFTaskModel taskWithDesc:[NSString stringWithFormat:@"search 'Account ID (%@)'", accountId] pageClassName:@"FindBrandViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
             [task.viewController typeInput:[NSString stringWithFormat:@"%@\n", accountId]];
             [task notifySuccessDelay:nDelay];
         }];
         [tasks addObject:task];
         
-        //  Tap first cell, note. it is not a
+        //  Tap first cell, note. it is not a table view
         task = [WFTaskModel taskWithDesc:@"tap 'Target Account'" pageClassName:@"FindBrandViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
             [task.viewController tapPoint:CGPointMake(180, 170)];
             [task notifySuccessDelay:nDelay];
@@ -129,7 +129,7 @@
         
         //  Waiting for load
         task = [WFTaskModel taskWithDesc:@"waiting for html did load" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
-            [task notifySuccessDelay:webLoadDelay];
+            [task notifySuccessDelay:2.5f];
         }];
         [tasks addObject:task];
         
@@ -146,7 +146,7 @@
                     NSArray *articleElementIds = [[self class] articleElementIdsFromHTML:result];
                     [[WFTaskManager sharedInstance].log appendAriticleElementIds:articleElementIds];
                     
-                    [task notifySuccessDelay:sDelay];
+                    [task notifySuccessDelay:0];
                 }];
             } else {
                 [task notifyFailed:@"[WF ERROR] no web view in this page"];
@@ -157,47 +157,49 @@
         
         
         
-        for (NSUInteger articleIdx = 0; articleIdx < 5; articleIdx++) {
+        for (NSUInteger articleIdx = 0; articleIdx < 10; articleIdx++) {
             //  Perform js location
             task = [WFTaskModel taskWithDesc:@"JS - Navigate to Article" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
                 
-                NSString *articleElementId = [WFTaskManager sharedInstance].log.accounts.lastObject.articleElementIds[articleIdx];
-                DDLog(@"Goting to navigate to %@", articleElementId);
+                NSArray *articleElementIds = [WFTaskManager sharedInstance].log.accounts.lastObject.articleElementIds;
                 
-                WKWebView *webView = (WKWebView *)[task.viewController webView];
-                
-                NSString *jsCode = [NSString stringWithFormat:@"location.href = document.querySelector('#%@').getAttribute('hrefs')", articleElementId];
-                DDLog(@"Running script %@", jsCode);
-                [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
+                if (articleIdx < articleElementIds.count) {
+                    NSString *articleElementId = articleElementIds[articleIdx];
+                    DDLog(@"[WF] Goting to navigate to %@", articleElementId);
                     
-                    [task notifySuccessDelay:lDelay];
-                }];
+                    WKWebView *webView = (WKWebView *)[task.viewController webView];
+                    
+                    NSString *jsCode = [NSString stringWithFormat:@"location.href = document.querySelector('#%@').getAttribute('hrefs')", articleElementId];
+                    DDLog(@"Running script %@", jsCode);
+                    [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
+                        [task notifySuccessDelay:webLoadDelay];
+                    }];
+                } else {
+                    [task notifySuccessDelay:0];
+                }
             
             }];
             [tasks addObject:task];
             
-            
-            //  Waiting for load
-            task = [WFTaskModel taskWithDesc:@"waiting for html did load" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
-                [task notifySuccessDelay:nDelay];
-            }];
-            [tasks addObject:task];
-            
+
             //  Collect html string
             task = [WFTaskModel taskWithDesc:@"Collect HTML string" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
 
-                WKWebView *webView = (WKWebView *)[task.viewController webView];
+                NSArray *articleElementIds = [WFTaskManager sharedInstance].log.accounts.lastObject.articleElementIds;
                 
-//                NSString *jsCode = @"document.documentElement.outerHTML.toString()";
-                NSString *jsCode = @"document.documentElement.innerText.toString()";
-                DDLog(@"Running script %@", jsCode);
-                [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
-                    DDLog(@"====Get HTML====");
-//                    DDLog(@"%@", result);
-                    DDLog(@"======");
-                    [[WFTaskManager sharedInstance].log appendHTML:result];
-                    [task notifySuccessDelay:sDelay];
-                }];
+                if (articleIdx < articleElementIds.count) {
+                    WKWebView *webView = (WKWebView *)[task.viewController webView];
+                    
+                    NSString *jsCode = @"document.documentElement.outerHTML.toString()";
+                    DDLog(@"Running script %@", jsCode);
+                    [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
+                        
+                        [[WFTaskManager sharedInstance].log appendHTML:result];
+                        [task notifySuccessDelay:0];
+                    }];
+                } else {
+                    [task notifySuccessDelay:0];
+                }
                 
             }];
             [tasks addObject:task];
@@ -205,13 +207,18 @@
             //  Perform js back
             task = [WFTaskModel taskWithDesc:@"JS - Back" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
                 
-                WKWebView *webView = (WKWebView *)[task.viewController webView];
+                NSArray *articleElementIds = [WFTaskManager sharedInstance].log.accounts.lastObject.articleElementIds;
                 
-                NSString *jsCode = @"history.back()";
-                [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
+                if (articleIdx < articleElementIds.count) {
+                    WKWebView *webView = (WKWebView *)[task.viewController webView];
                     
-                    [task notifySuccessDelay:sDelay];
-                }];
+                    NSString *jsCode = @"history.back()";
+                    [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
+                        [task notifySuccessDelay:sDelay];
+                    }];
+                } else {
+                    [task notifySuccessDelay:0];
+                }
                 
             }];
             [tasks addObject:task];

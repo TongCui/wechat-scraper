@@ -26,6 +26,7 @@
 
 + (instancetype)taskWithDesc:(NSString *)desc pageClassName:(NSString *)pageClassName operation:(void (^)(id<WFTaskModelDelegate> caller, WFTaskModel* task))operation;
 
+@property (nonatomic, assign) NSUInteger taskIndex;
 @property (nonatomic, assign) BOOL isTest;
 @property (nonatomic, assign) NSUInteger retryCount;
 @property (nonatomic, assign) NSTimeInterval delay;

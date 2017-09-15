@@ -1,9 +1,18 @@
-ARCHS = armv7 armv7s arm64
+ARCHS = arm64
 TARGET=iphone:latest:7.1
 
 ADDITIONAL_OBJCFLAGS = -fobjc-arc
 	
-FILES = CGGeometry-KIFAdditions.m \
+FILES = AFHTTPRequestOperation.m \
+AFHTTPRequestOperationManager.m \
+AFHTTPSessionManager.m \
+AFNetworkReachabilityManager.m \
+AFSecurityPolicy.m \
+AFURLConnectionOperation.m \
+AFURLRequestSerialization.m \
+AFURLResponseSerialization.m \
+AFURLSessionManager.m \
+CGGeometry-KIFAdditions.m \
 DDBaseItem.m \
 DDJSONKit.m \
 DDSwizzleManager.m \
@@ -44,7 +53,7 @@ WFTaskModel.m \
 WFWechatAccountLog.m \
 WFWechatArticleLog.m \
 WFWechatSessionLog.m \
-WFWorkflow.m
+WFWorkflow.m \
 
 include theos/makefiles/common.mk
 

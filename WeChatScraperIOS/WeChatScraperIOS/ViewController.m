@@ -16,6 +16,7 @@
 #import "AFNetworking.h"
 #import "NSString+Tools.h"
 
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *clickButton;
 
@@ -34,7 +35,11 @@
     [testButton addTarget:self action:@selector(testButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:testButton];
     //  End
+    
+
 }
+
+
 
 - (NSString *)title {
     return nil;
@@ -42,50 +47,34 @@
 
 - (void)testButtonPressed:(id)sender {
     
-    NSLog(@"=====updateAppListInfo=========");
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
-    // NSDictionary *parameters = @{@"bundle_id": kBundleId};
-    NSString *urlString = @"https://dpi.smart-sense.org/admin/get_app_acounts";
     
-    [manager POST:urlString parameters:nil
-          success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
-              
-              DDLog(@"%@", responseObject.JSONString);
-              
-          } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@", error);
-          }];
-    
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"testhtml" ofType:@"html"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"log" ofType:@"json"];
     NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
-    NSDictionary *test = @{@"account":@(123), @"html":content};
-    NSLog(@"%@", test.JSONString);
-    NSString *savePath = [NSString filePathOfCachesFolderWithName:@"1.json"];
-    BOOL res = [test.JSONString writeToFile:savePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    DDLog(@"Save file %@ (%@)", savePath, res ? @"YES" : @"NO");
-
-
-//    id result = @"123123123";
-//    DDLog(@"%@", [result class]);
-//    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains
-//    (NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//    
-//    //make a file name to write the data to using the documents directory:
-//    NSString *fileName = [NSString stringWithFormat:@"%@/%@.html",
-//                          documentsDirectory, [[NSDate date] description]];
-//    
-//    DDLog(@"Write html to %@", fileName);
-//    DDLog(@"======");
-//    DDLog(@"%@", result);
-//    //save content to the documents directory
-//    BOOL res = [result writeToFile:fileName atomically:YES encoding:NSStringEncodingConversionAllowLossy error:nil];
-//    DDLog(@"result is %@", @(res));
+//    NSDictionary *params = [DDJSONKit objectFromJSONString:content];
+//    NSDictionary *parameters = @{@"test":@(1), @"html":@"sometext"};
+    
+    NSString *urlString = @"http://13.229.121.69:8000/foo";
+    
+    
+    NSData *postData = [content dataUsingEncoding:NSUTF8StringEncoding];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlString parameters:nil error:nil];
+    request.timeoutInterval= 100;
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"text/html" forHTTPHeaderField:@"Accept"];
+    [request setHTTPBody:postData];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (!error) {
+            NSLog(@"responseObject: %@", responseObject);
+        } else {
+            NSLog(@"error: %@, %@, %@", error, response, responseObject);
+        }
+    }] resume];
+    
+    
     
 //    [WFTaskManager sharedInstance].lastViewController = self;
 //    [WFTaskManager sharedInstance].lastVCClassName = @"ViewController";

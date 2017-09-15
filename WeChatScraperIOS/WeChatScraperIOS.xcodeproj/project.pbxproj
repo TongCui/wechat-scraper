@@ -13,6 +13,7 @@
 		079C79D11F6B48F900671F6F /* WFWechatArticleLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79D01F6B48F900671F6F /* WFWechatArticleLog.m */; };
 		079C79D51F6B50E900671F6F /* DDJSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 079C79D41F6B50E900671F6F /* DDJSONKit.m */; };
 		079C79D71F6BB0B600671F6F /* testhtml.html in Resources */ = {isa = PBXBuildFile; fileRef = 079C79D61F6BB0B600671F6F /* testhtml.html */; };
+		079C79D91F6C1F4A00671F6F /* log.json in Resources */ = {isa = PBXBuildFile; fileRef = 079C79D81F6C1F4A00671F6F /* log.json */; };
 		07D26C0F1F693F1A00DB0767 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C0E1F693F1A00DB0767 /* main.m */; };
 		07D26C121F693F1A00DB0767 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C111F693F1A00DB0767 /* AppDelegate.m */; };
 		07D26C151F693F1A00DB0767 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D26C141F693F1A00DB0767 /* ViewController.m */; };
@@ -80,6 +81,7 @@
 		079C79D31F6B50E900671F6F /* DDJSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDJSONKit.h; sourceTree = "<group>"; };
 		079C79D41F6B50E900671F6F /* DDJSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDJSONKit.m; sourceTree = "<group>"; };
 		079C79D61F6BB0B600671F6F /* testhtml.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = testhtml.html; sourceTree = "<group>"; };
+		079C79D81F6C1F4A00671F6F /* log.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = log.json; sourceTree = "<group>"; };
 		07D26C0A1F693F1A00DB0767 /* WeChatScraperIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatScraperIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D26C0E1F693F1A00DB0767 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07D26C101F693F1A00DB0767 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 		07D26C0D1F693F1A00DB0767 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				079C79D81F6C1F4A00671F6F /* log.json */,
 				079C79D61F6BB0B600671F6F /* testhtml.html */,
 				07D26C191F693F1A00DB0767 /* Assets.xcassets */,
 				07D26C161F693F1A00DB0767 /* Main.storyboard */,
@@ -501,6 +504,7 @@
 				07D26C1D1F693F1A00DB0767 /* LaunchScreen.storyboard in Resources */,
 				07D26C1A1F693F1A00DB0767 /* Assets.xcassets in Resources */,
 				079C79D71F6BB0B600671F6F /* testhtml.html in Resources */,
+				079C79D91F6C1F4A00671F6F /* log.json in Resources */,
 				07D26C181F693F1A00DB0767 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

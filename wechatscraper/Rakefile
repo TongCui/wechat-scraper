@@ -3,7 +3,8 @@ require 'net/ssh'
 task default: %w[test]
 
 
-phone_ip = "192.168.4.136"
+# phone_ip = "192.168.4.136"
+phone_ip = "192.168.199.195"
 
 desc "Test"
 task :test do
@@ -43,6 +44,7 @@ end
 desc "Collect Files"
 task :collect do 
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Workflow/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/AFNetworking/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/JSONKit/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/KIFAdditions/* ./'
   sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Managers/* ./'

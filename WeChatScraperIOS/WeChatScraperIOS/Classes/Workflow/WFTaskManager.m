@@ -15,6 +15,7 @@
 #import "WFWechatSessionLog.h"
 #import "WFWechatAccountLog.h"
 #import "WFWechatArticleLog.h"
+#import "AFNetworking.h"
 
 @interface WFTaskManager () <WFTaskModelDelegate>
 
@@ -61,19 +62,20 @@
 
 
 - (void)start {
+    [self.tasks enumerateObjectsUsingBlock:^(WFTaskModel *task, NSUInteger idx, BOOL * stop) {
+        task.taskIndex = idx;
+    }];
     [self.tasks.firstObject run:self];
 }
 
 - (void)consume {
     WFTaskModel *firstTask = self.tasks.firstObject;
-    DDLog(@"~~~%@, %@", self.lastVCClassName, self.lastViewController);
-    DDLog(@"~~~%@", firstTask.pageClassName);
+    
     
     DDLog(@"[WF] Will Do Task (with delay %f) (target page %@): %@", firstTask.delay, firstTask.pageClassName, firstTask.desc);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(firstTask.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         if ([firstTask isReady:self.lastVCClassName]) {
-            DDLog(@"run");
             [firstTask run:self];
         } else {
             [self notifyError:@"[WF Error] Expected page is not shown!"];
@@ -88,26 +90,30 @@
     [self.tasks removeAllObjects];
     self.isRunning = NO;
     DDLog(@"[WF] WorkFlow Failed %@", errorMessage);
-    DDLog(@"======");
-//    DDLog(@"%@", self.log.infoDict.JSONString);
 }
 
 - (void)notifyFinish {
     self.isRunning = NO;
     DDLog(@"[WF] Success - All Tasks are finished!! Well Done!!!");
-    DDLog(@"======");
-    DDLog(@"%@", self.log.infoDict.JSONString);
-    
-    [self saveLogLocalFile];
-    
+    NSString *json = self.log.infoDict.JSONString;
+
+    [self saveLogLocalFile:json];
+    [self postLog:json];
 }
 
-- (void)saveLogLocalFile {
-    NSString *json = self.log.infoDict.JSONString;
+- (NSString *)dateString {
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMdd-HH:mm:ss";
     
-    NSString *savePath = [NSString filePathOfCachesFolderWithName:@"log.json"];
+    return [formatter stringFromDate:date];
+}
+
+- (void)saveLogLocalFile:(NSString *)json {
+    NSString *fileName = [NSString stringWithFormat:@"log_%@.json", [self dateString]];
+    NSString *savePath = [NSString filePathOfCachesFolderWithName:fileName];
     BOOL res = [json writeToFile:savePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    DDLog(@"Save file %@ (%@)", savePath, res ? @"YES" : @"NO");
+    DDLog(@"[WF] Save file %@ (%@)", savePath, res ? @"YES" : @"NO");
 }
 
 #pragma mark - Notifications
@@ -139,7 +145,7 @@
 
 #pragma mark - WSTaskModelDelgate
 - (void)taskDidFinish:(WFTaskModel *)task {
-    DDLog(@"[WF] Task is finished: %@", task.desc);
+    DDLog(@"[WF] Task(%ld) [%@] is finished", (long)task.taskIndex, task.desc);
     if (self.tasks.count > 0) {
         [self.tasks removeObjectAtIndex:0];
     }
@@ -154,10 +160,31 @@
 }
 
 - (void)taskDidFail:(WFTaskModel *)task message:(NSString *)errorMessage {
-
+    DDLog(@"[WF] Task(%ld) [%@] failed with reason (%@)", (long)task.taskIndex, task.desc, errorMessage);
 }
 - (void)taskWillKeepWaiting:(WFTaskModel *)task {
 
+}
+
+- (void)postLog:(NSString *)log {
+    NSString *urlString = @"http://13.229.121.69:8000/foo";
+    
+    NSData *postData = [log dataUsingEncoding:NSUTF8StringEncoding];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:urlString parameters:nil error:nil];
+    request.timeoutInterval= 100;
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"text/html" forHTTPHeaderField:@"Accept"];
+    [request setHTTPBody:postData];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [[manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (!error) {
+            DDLog(@"[WF] Post Success!!!");
+        } else {
+            DDLog(@"[WF] Error: %@, %@, %@", error, response, responseObject);
+        }
+    }] resume];
 }
 
 
