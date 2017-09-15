@@ -24,8 +24,8 @@
              @"rmrbwx",
              @"zhanhao668",
              @"yetingfm",
-//             @"lengtoo",
-//             @"mimeng7",
+             @"lengtoo",
+             @"mimeng7",
 //             @"QQ_shijuezhi",
 //             @"duhaoshu",
 //             @"gaoshi222",
@@ -57,15 +57,14 @@
     WFTaskModel *task = nil;
     
     NSTimeInterval nDelay = 1.0f;
-    NSTimeInterval sDelay = 0.8f;
+    NSTimeInterval sDelay = 0.6f;
     NSTimeInterval lDelay = 1.5f;
-    NSTimeInterval webLoadDelay = 2.5f;
+    NSTimeInterval webLoadDelay = 1.8f;
     
     
     //  Go To search page
     task = [WFTaskModel taskWithDesc:@"tap '+'" pageClassName:@"NewMainFrameViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
         [task.viewController tapPoint:CGPointMake(360, 40)];
-        DDLog(@"=========Log1=========");
         [task notifySuccessDelay:sDelay];
     }];
     [tasks addObject:task];
@@ -153,12 +152,12 @@
                 [task notifyFailed:@"[WF ERROR] no web view in this page"];
             }
             
-            [task notifySuccessDelay:sDelay];
         }];
         [tasks addObject:task];
         
         
-        for (NSUInteger articleIdx = 0; articleIdx < 3; articleIdx++) {
+        
+        for (NSUInteger articleIdx = 0; articleIdx < 5; articleIdx++) {
             //  Perform js location
             task = [WFTaskModel taskWithDesc:@"JS - Navigate to Article" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
                 
@@ -171,17 +170,16 @@
                 DDLog(@"Running script %@", jsCode);
                 [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
                     
-                    [task notifySuccessDelay:sDelay];
+                    [task notifySuccessDelay:lDelay];
                 }];
-                
-                [task notifySuccessDelay:sDelay];
+            
             }];
             [tasks addObject:task];
             
             
             //  Waiting for load
             task = [WFTaskModel taskWithDesc:@"waiting for html did load" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
-                [task notifySuccessDelay:webLoadDelay];
+                [task notifySuccessDelay:nDelay];
             }];
             [tasks addObject:task];
             
@@ -190,22 +188,22 @@
 
                 WKWebView *webView = (WKWebView *)[task.viewController webView];
                 
-                NSString *jsCode = @"document.documentElement.outerHTML.toString()";
+//                NSString *jsCode = @"document.documentElement.outerHTML.toString()";
+                NSString *jsCode = @"document.documentElement.innerText.toString()";
                 DDLog(@"Running script %@", jsCode);
                 [webView evaluateJavaScript:jsCode completionHandler:^(id result, NSError * _Nullable error) {
                     DDLog(@"====Get HTML====");
-                    DDLog(@"%@", result);
+//                    DDLog(@"%@", result);
                     DDLog(@"======");
                     [[WFTaskManager sharedInstance].log appendHTML:result];
                     [task notifySuccessDelay:sDelay];
                 }];
                 
-                [task notifySuccessDelay:sDelay];
             }];
             [tasks addObject:task];
             
             //  Perform js back
-            task = [WFTaskModel taskWithDesc:@"JS - Navigate to Article" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
+            task = [WFTaskModel taskWithDesc:@"JS - Back" pageClassName:@"MMWebViewController" operation:^(id<WFTaskModelDelegate> caller, WFTaskModel *task) {
                 
                 WKWebView *webView = (WKWebView *)[task.viewController webView];
                 
@@ -215,7 +213,6 @@
                     [task notifySuccessDelay:sDelay];
                 }];
                 
-                [task notifySuccessDelay:sDelay];
             }];
             [tasks addObject:task];
         }
@@ -236,8 +233,6 @@
         }];
         [tasks addObject:task];
     }];
-    
-    
     
     return [tasks copy];
 }

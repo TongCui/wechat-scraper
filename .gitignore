@@ -70,3 +70,4 @@ wechatscraper/*.h
 wechatscraper/*.m
 phonemanager/.theos/*
 phonemanager/com.luckytr.*
+wechat-headers/*.json

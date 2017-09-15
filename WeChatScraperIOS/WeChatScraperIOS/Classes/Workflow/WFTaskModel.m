@@ -16,7 +16,7 @@
     model.desc = desc;
     model.pageClassName = pageClassName;
     model.operation = operation;
-    model.delay = 1.0f;
+    model.delay = 0.5f;
     return model;
 }
 

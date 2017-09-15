@@ -12,7 +12,9 @@
 #import "WFTaskManager.h"
 #import "WFWechatSessionLog.h"
 #import "WFWechatAccountLog.h"
-
+#import "DDJSONKit.h"
+#import "AFNetworking.h"
+#import "NSString+Tools.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *clickButton;
@@ -40,6 +42,32 @@
 
 - (void)testButtonPressed:(id)sender {
     
+    NSLog(@"=====updateAppListInfo=========");
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    // NSDictionary *parameters = @{@"bundle_id": kBundleId};
+    NSString *urlString = @"https://dpi.smart-sense.org/admin/get_app_acounts";
+    
+    [manager POST:urlString parameters:nil
+          success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+              
+              DDLog(@"%@", responseObject.JSONString);
+              
+          } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Error: %@", error);
+          }];
+    
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"testhtml" ofType:@"html"];
+    NSString *content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    NSDictionary *test = @{@"account":@(123), @"html":content};
+    NSLog(@"%@", test.JSONString);
+    NSString *savePath = [NSString filePathOfCachesFolderWithName:@"1.json"];
+    BOOL res = [test.JSONString writeToFile:savePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    DDLog(@"Save file %@ (%@)", savePath, res ? @"YES" : @"NO");
+
 
 //    id result = @"123123123";
 //    DDLog(@"%@", [result class]);
@@ -59,10 +87,10 @@
 //    BOOL res = [result writeToFile:fileName atomically:YES encoding:NSStringEncodingConversionAllowLossy error:nil];
 //    DDLog(@"result is %@", @(res));
     
-    [WFTaskManager sharedInstance].lastViewController = self;
-    [WFTaskManager sharedInstance].lastVCClassName = @"ViewController";
-    [[WFTaskManager sharedInstance] setupTest];
-    [[WFTaskManager sharedInstance] start];
+//    [WFTaskManager sharedInstance].lastViewController = self;
+//    [WFTaskManager sharedInstance].lastVCClassName = @"ViewController";
+//    [[WFTaskManager sharedInstance] setupTest];
+//    [[WFTaskManager sharedInstance] start];
 }
 
 - (void)didReceiveMemoryWarning {

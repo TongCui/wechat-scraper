@@ -11,7 +11,7 @@
 #import "Global.h"
 #import "WFWorkflow.h"
 #import "DDJSONKit.h"
-
+#import "NSString+Tools.h"
 #import "WFWechatSessionLog.h"
 #import "WFWechatAccountLog.h"
 #import "WFWechatArticleLog.h"
@@ -87,16 +87,27 @@
 - (void)notifyError:(NSString *)errorMessage {
     [self.tasks removeAllObjects];
     self.isRunning = NO;
-    DDLog(@"%@", errorMessage);
+    DDLog(@"[WF] WorkFlow Failed %@", errorMessage);
     DDLog(@"======");
-    DDLog(@"%@", self.log.infoDict.JSONString);
+//    DDLog(@"%@", self.log.infoDict.JSONString);
 }
 
 - (void)notifyFinish {
     self.isRunning = NO;
-    DDLog(@"All Tasks are finished!! Well Done!!!");
+    DDLog(@"[WF] Success - All Tasks are finished!! Well Done!!!");
     DDLog(@"======");
     DDLog(@"%@", self.log.infoDict.JSONString);
+    
+    [self saveLogLocalFile];
+    
+}
+
+- (void)saveLogLocalFile {
+    NSString *json = self.log.infoDict.JSONString;
+    
+    NSString *savePath = [NSString filePathOfCachesFolderWithName:@"log.json"];
+    BOOL res = [json writeToFile:savePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    DDLog(@"Save file %@ (%@)", savePath, res ? @"YES" : @"NO");
 }
 
 #pragma mark - Notifications
