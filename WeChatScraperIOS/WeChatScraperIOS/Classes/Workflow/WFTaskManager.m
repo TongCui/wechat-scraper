@@ -54,6 +54,9 @@
 - (void)setup {
     DDLog(@"[WF] setup task manager");
     self.tasks = [[WFWorkflow wechatScraperWorkflow] mutableCopy];
+    [self.tasks enumerateObjectsUsingBlock:^(WFTaskModel *task, NSUInteger idx, BOOL * stop) {
+        task.taskIndex = idx;
+    }];
 }
 
 - (void)setupTest {
@@ -62,9 +65,6 @@
 
 
 - (void)start {
-    [self.tasks enumerateObjectsUsingBlock:^(WFTaskModel *task, NSUInteger idx, BOOL * stop) {
-        task.taskIndex = idx;
-    }];
     [self.tasks.firstObject run:self];
 }
 
