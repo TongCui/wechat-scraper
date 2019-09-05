@@ -61,3 +61,13 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+
+# Logos
+wechatscraper/.theos/*
+wechatscraper/com.luckytr.*
+wechatscraper/*.h
+wechatscraper/*.m
+phonemanager/.theos/*
+phonemanager/com.luckytr.*
+wechat-headers/*.json

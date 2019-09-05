@@ -1,0 +1,65 @@
+require 'net/ssh'
+
+task default: %w[test]
+
+
+phone_ip = "192.168.4.136"
+
+desc "Test"
+task :test do
+  puts "Hello world"
+  last_packate_file_path = File.join(Dir.pwd, ".theos/last_package")
+  puts last_packate_file_path
+  last = File.open(last_packate_file_path, 'r') {|f| f.read}
+  puts last
+end
+
+desc "Clean project"
+task :clean do 
+  # clean all debs
+  sh 'rm com.luckytr.wechat.scraper_*_iphoneos-arm.deb'
+end
+
+desc "Reboot phone"
+task :reboot do
+  Net::SSH.start(phone_ip, "root") do |ssh|
+    puts ssh.exec! " killall -9 SpringBoard "
+  end
+end
+
+desc "Collect Files"
+task :collect do 
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/KIFAdditions/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Managers/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/Monkey/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/ToolAdditions/* ./'
+  sh 'cp ../WeChatScraperIOS/WeChatScraperIOS/Classes/*.h ./'
+  # ls *.m | awk '{print $NF" \\"}'
+  command = "ls *.m | awk '{print $NF\" \\\\\"}'"
+  sh command
+end
+
+desc "SSH into jailbreak server, make and replace deb"
+task :make do
+  puts "> Making..."
+  sh 'make'
+  sh 'make package message=yes'
+
+  last_packate_file_path = File.join(Dir.pwd, ".theos/last_package")
+  puts last_packate_file_path
+  last = File.open(last_packate_file_path, 'r') {|f| f.read}.strip
+  puts "> Last file is #{last}..."
+  sh "scp #{last} root@#{phone_ip}:/debs/"
+
+  folder = Dir.pwd.split(File::SEPARATOR)[-1]
+  plist_path = File.join(Dir.pwd, "#{folder}.plist")
+  need_reboot = File.open(plist_path){|f|f.read}.include? "com.apple.springboard"
+
+  Net::SSH.start(phone_ip, "root") do |ssh|
+    puts ssh.exec! "cd /debs ; dpkg -i #{last}"
+    if need_reboot
+      puts ssh.exec! " killall -9 SpringBoard "
+    end
+  end
+
+end
